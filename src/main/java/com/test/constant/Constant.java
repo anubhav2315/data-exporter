@@ -358,7 +358,7 @@ public class Constant {
             "CRP\tC-Reactive Protein\n" +
             "VEGF\tVascular Endothelial Growth Factor\n" +
             "HGF\tHepatocyte Growth Factor\n" +
-            "TG\tTriglycerides\n" +
+            "TG\tTriglycerides\ttriglyceride\n" +
             "Urine 8-oxodG\tUrine 8-Oxo-2'-deoxyguanosine\n" +
             "Urine 15-F2t-lsoP\tUrine 15-F2t-isoprostane\n" +
             "Plasma Protein Carbonyls\tPlasma Protein Carbonyls\n" +

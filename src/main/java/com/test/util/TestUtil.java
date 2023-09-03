@@ -152,11 +152,18 @@ public class TestUtil {
 //            data = data.substring(0,data.indexOf(".")+5);
 //        }
 
-        Cell cell = sheet.getRow(rowNum).createCell(colNum);
+        Row row = null;
+        if(sheet.getRow(rowNum) == null) {
+            row = sheet.createRow(rowNum);
+        }
+        else {
+            row = sheet.getRow(rowNum);
+        }
+        Cell cell = row.createCell(colNum);
         cell.setCellValue(data);
     }
 
-
+//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
     public Map<String , String> fetchUnitsMap(Map<String ,String> unitsMap , Map<String ,String> unitsReverseMap,String query) {
         String str[] = query.split("\n");
         for(int i=1;i<str.length;i++) {
@@ -180,6 +187,7 @@ public class TestUtil {
                 if(hm.containsKey(internalArr[j].toLowerCase().trim())) {
                     flag = true;
                     elementMap = hm.get(internalArr[j].toLowerCase().trim());
+                    break;
                 }
             }
             if(flag) {

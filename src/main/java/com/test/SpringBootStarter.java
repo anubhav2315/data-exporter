@@ -74,8 +74,6 @@ public class SpringBootStarter implements ApplicationRunner {
         standardUnit = ConversionUtil.convertStandardUnit(System.getProperty("conversionFile"));
         convertUnit = ConversionUtil.convertMolUnitsUnits(System.getProperty("conversionFile"));
         TestUtil.populateParametersMap(convertUnit);
-        TestUtil.populateSynonymHeader(secondPreHeader);
-        TestUtil.populateSynonymHeader(secondPostHeader);
         Map<String , Map<String, String>> variableMap = new LinkedHashMap<>();
         Map<String , String> unitsMap = new HashedMap();
         Map<String , String> unitsReverseMap = new HashedMap();
@@ -101,10 +99,17 @@ public class SpringBootStarter implements ApplicationRunner {
                     continue;
                 }
                 Map<String, Map<String, Object>> initialDataMap = fetchDataMap(wb, 0);
+                for(String key : initialDataMap.keySet()) {
+                    Map<String, Object> hm = initialDataMap.get(key);
+                    hm.put("Paper Name",files[i].getName());
+                }
                 Map<String, Map<String, Object>> preDataMap = fetchDataMap(wb, 1);
                 Map<String, Map<String, Object>> postDataMap = fetchDataMap(wb, 2);
 
+
                 fetchOutputHeaderMap();
+                TestUtil.populateSynonymHeader(secondPreHeader);
+                TestUtil.populateSynonymHeader(secondPostHeader);
 
                 FileInputStream outputFile = FileUtil.fetchFile();
                 //FileInputStream outputFile = new FileInputStream(new File(System.getProperty("outputFile")));
@@ -126,7 +131,7 @@ public class SpringBootStarter implements ApplicationRunner {
                 populateData(outputWb, postDataMap, postInterventionIndex, true,"post");
                 outputRowNum = tempOutputRowNum;
                 outputColNum = 2;
-                tempOutputRowNum = tempOutputRowNum+2;
+                tempOutputRowNum = tempOutputRowNum+initialDataMap.keySet().size();
                 System.out.println("File completed ");
                 file.close();
 
